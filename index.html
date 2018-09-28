@@ -17,7 +17,7 @@
         <![endif]-->
         
 
-        <select name="Aluepalvelu" id="area">
+        <select name="Aluepalvelu" id="service">
             <option value="toimeksi">Toimeksi.fi</option>
             <option value="espoolaiset">Espoolaiset</option>
             <option value="yhdistysinfo">Yhdistysinfo</option>
@@ -43,6 +43,33 @@
         </select>
 
         Nostojen määrä: <input id="perPage" type="number" value="10">
+        
+        Alue:
+        <select name="alue" id="area">
+            <option value="none"></option>
+            <option value="30">Etelä-Karjala</option>
+            <option value="28">Etelä-Pohjanmaa</option>
+            <option value="29">Etelä-Savo</option>
+            <option value="2836">Kaakkois-Suomi</option>
+            <option value="23">Kainuu</option>
+            <option value="36">Kanta-Häme</option>
+            <option value="25">Keski-Pohjanmaa</option>
+            <option value="31">Keski-Suomi</option>
+            <option value="35">Kymenlaakso</option>
+            <option value="21">Lappi</option>
+            <option value="33">Pirkanmaa</option>
+            <option value="24">Pohjanmaa</option>
+            <option value="27">Pohjois-Karjala</option>
+            <option value="22">Pohjois-Pohjanmaa</option>
+            <option value="26">Pohjois-Savo</option>
+            <option value="34">Päijät-Häme</option>
+            <option value="32">Satakunta</option>
+            <option value="38">Uusimaa</option>
+            <option value="37">Varsinais-Suomi</option>
+            <option value="2575">Valtakunnallinen</option>
+        </select>
+
+        Kylä/kaupunginosa: <input id="village" type="text" value="">
 
         <button id="luo">Luo rajapintakutsu</button>
         <div id="print"></div>
