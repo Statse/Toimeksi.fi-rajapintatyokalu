@@ -71,6 +71,23 @@
 
         Kylä/kaupunginosa: <input id="village" type="text" value="">
 
+        Järjestys nouseva/laskeva: 
+        <select name="order" id="order">
+            <option value="desc">Laskeva</option>
+            <option value="asc">Nouseva</option>
+        </select>
+
+        Järjestysperuste:
+        
+        <select name="orderby" id="orderby">
+            <option value="date">pvm</option>
+            <option value="author">Kirjoittaja</option>
+            <option value="id">Id</option>
+            <option value="modified">Muokkaus pvm</option>
+            <option value="parent">Parent object</option>
+            <option value="title">Otsikko</option>
+        </select>
+
         <button id="luo">Luo rajapintakutsu</button>
         <div id="print"></div>
         <div id="js"></div>
