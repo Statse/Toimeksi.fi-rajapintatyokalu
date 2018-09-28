@@ -51,7 +51,7 @@ document.getElementById("luo").onclick = function () {
         var villageURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/tm_municipality?search=' + village;
         console.log("Haetaan osoitteesta: " + villageURL);
         var a = makeRestApiRequest(villageURL, parseVillageSearch);
-        //console.log("Kylä/kaupunginosan id " + a);
+        console.log("Kylä/kaupunginosan id " + a);
 
         // var kunta = '&tm_municipality' + kunta;
         // return kunta; 
@@ -69,6 +69,7 @@ document.getElementById("luo").onclick = function () {
             if (functionAfter !== undefined){
                 console.log("Function after called")
                 functionAfter(data);
+                return functionAfter(data);
             } else {
                 console.log("Function after wast not called because function was not passed as parameter");
             }
