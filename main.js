@@ -1,30 +1,17 @@
 console.log("Main.js start");
 var printHere = document.getElementById("print");
 
-var services = 
-[
-"toimeksi",
-"espoolaiset",
-"yhdistysinfo",
-"yhdistystori",
-"lappilaiset",
-"jelli",
-"varesverkosto",
-"ihimiset",
-"lohjalaiset",
-"pohjoissavolaiset"
-]
-
-
 
 
 document.getElementById("luo").onclick = function () {
     var areaSelected = document.getElementById("area").value;
     var typeSelected = document.getElementById("type").value;
+    var perPage = document.getElementById("perPage").value;
     console.log("Area number " + areaSelected);
     console.log("Type selected " + typeSelected);
+    console.log("Posts per page: " + perPage);
     var ourRequest = new XMLHttpRequest();
-    ourRequest.open('GET', 'https://www.'+services[areaSelected]+'.fi/wp-json/wp/v2/' + typeSelected);
+    ourRequest.open('GET', 'https://www.'+ areaSelected +'.fi/wp-json/wp/v2/' + typeSelected +'?per_page='+ perPage);
     ourRequest.onload = function() {
     if (ourRequest.status >= 200 && ourRequest.status < 400) {
         var data = JSON.parse(ourRequest.responseText);
@@ -45,10 +32,10 @@ document.getElementById("luo").onclick = function () {
     console.log("CreateHTML function called");
     var htmlString = '';
         for (i=0;i<data.length;i++){
-    htmlString += '<h2><a href ='+ data[i].guid.rendered +'>' + data[i].title.rendered +'</a>'+'</h2>';
+    htmlString += '<h2><a href ='+ data[i].link +'>' + data[i].title.rendered +'</a>'+'</h2>';
     htmlString += data[i].content.rendered;
     }
-   //console.log("print this" + htmlString);
     printHere.innerHTML = htmlString;
     }
 }
+

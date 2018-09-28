@@ -18,16 +18,16 @@
         
 
         <select name="Aluepalvelu" id="area">
-            <option value="0">Toimeksi.fi</option>
-            <option value="1">Espoolaiset</option>
-            <option value="2">Yhdistysinfo</option>
-            <option value="3">Yhdistystori</option>
-            <option value="4">Lappilaiset</option>
-            <option value="5">Jelli</option>
-            <option value="6">Varesverkosto</option>
-            <option value="7">Ihimiset</option>
-            <option value="8">Lohjalaiset</option>
-            <option value="9">Pohjoissavolaiset</option>
+            <option value="toimeksi">Toimeksi.fi</option>
+            <option value="espoolaiset">Espoolaiset</option>
+            <option value="yhdistysinfo">Yhdistysinfo</option>
+            <option value="yhdistystori">Yhdistystori</option>
+            <option value="lappilaiset">Lappilaiset</option>
+            <option value="jelli">Jelli</option>
+            <option value="varesverkosto">Varesverkosto</option>
+            <option value="ihimiset">Ihimiset</option>
+            <option value="lohjalaiset">Lohjalaiset</option>
+            <option value="pohjoissavolaiset">Pohjoissavolaiset</option>
         </select>
 
         <select name="ContentType" id="type">
@@ -42,8 +42,11 @@
             <option value="tm_volunteer">Vapaaehtoistehtävät</option>
         </select>
 
+        Nostojen määrä: <input id="perPage" type="number" value="10">
+
         <button id="luo">Luo rajapintakutsu</button>
         <div id="print"></div>
+        <div id="js"></div>
         <script src="main.js" async defer></script>
     </body>
 </html>
