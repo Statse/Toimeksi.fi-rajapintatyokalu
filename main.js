@@ -9,28 +9,30 @@ document.getElementById("luo").onclick = function () {
     var perPage = document.getElementById("perPage").value;
     var area = document.getElementById("area").value;
     var village = document.getElementById("village").value;
+    var kunta = document.getElementById("kunta").value;
     var order = document.getElementById("order").value;
     var orderedBy = document.getElementById("orderby").value;
-    console.log("Palvelu: " + serviceSelected);
-    console.log("Noston tyyppi: " + typeSelected);
-    console.log("Nostojen määrä: " + perPage);
-    console.log("Kylää haettu: " + village);
-    //getVillage(village);
+    // console.log("Palvelu: " + serviceSelected);
+    // console.log("Noston tyyppi: " + typeSelected);
+    // console.log("Nostojen määrä: " + perPage);
    
-   // console.log(getVillage(village));
 
     var reqURL = requestedURL();
     console.log("*==*makeRestApiRequest*==*");
+
     makeRestApiRequest(reqURL, createHTML);
 
-
     createJavaScript(reqURL); 
+
+   
  
     function requestedURL(){
-      var requestURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/' + typeSelected + postPerPage(perPage) + getArea(area) + orderBy(orderedBy) + ordered(order);
+
+      var requestURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/' + typeSelected + postPerPage(perPage) + getArea(area) + orderBy(orderedBy) + ordered(order) +  getKunta(kunta);
       console.log(requestURL);
       return requestURL;
     }
+
 
     function orderBy(orderedBy){
          return "&orderby=" + orderedBy; 
@@ -67,41 +69,42 @@ document.getElementById("luo").onclick = function () {
         }
     }
 
-    //annetaan hautua
-    function getVillage(village){
+    function getKunta(kunta){
         var a;
-        console.log("2. Haetaan kylää/kaupunginosaa " + village);
-        var villageURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/tm_municipality?search=' + village;
-        console.log("3. Haetaan osoitteesta: " + villageURL);
+        var kuntaURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/tm_municipality?search=' + kunta;
 
-        var villageRequest = new XMLHttpRequest();
-        villageRequest.open('GET', villageURL);
-        villageRequest.onload = function() {
-        if (villageRequest.status >= 200 && villageRequest.status < 400) {
-            var data = JSON.parse(villageRequest.responseText);
+        var kuntaRequest = new XMLHttpRequest();
+        kuntaRequest.open('GET', kuntaURL, false);
+        kuntaRequest.onload = function() {
+        if (kuntaRequest.status >= 200 && kuntaRequest.status < 400) {
+            var data = JSON.parse(kuntaRequest.responseText);
             console.log(data);
-            a = parseVillageSearch(data);
+            a = parseSearch(data, kunta);
         } else {
             console.log("We connected to the server, but it returned an error.");
         }
         };
     
-        villageRequest.onerror = function() {
+        kuntaRequest.onerror = function() {
             console.log("Connection error");
         };
     
-        villageRequest.send();
-        console.log("Asetetaan kylä url osoitteeseen: " + a);
-        if (a==undefined){
-
-        } else {
-            var municipality = "&tm_municipality="+a;
-            return municipality;
+        kuntaRequest.send();
+        if (kuntaRequest.readyState == 4){
+            if (a==undefined){
+                console.log("Returnin undefined as kunta");
+                return '';
+            } else {
+                console.log("Asetetaan kylä url osoitteeseen: " + a);
+                var municipality = "&tm_municipality="+a;
+                console.log("*=====*getKunta function call completed*=====*");
+                return municipality;
+            }
         }
 
         
-    console.log("*=====*getVillage function call completed*=====*");
     }
+
 
     function makeRestApiRequest(requestURL){
         //url to request, function to handle the json data
@@ -126,23 +129,24 @@ document.getElementById("luo").onclick = function () {
     }
 
     //unohda tämä tee muut ensin. 
-    function parseVillageSearch(data){
-        console.log("parseVillageSearch started");
+    function parseSearch(data, passedValue){
+        console.log("parseSearch started");
         var returnData;
             for (i=0;i<data.length;i++){
-                if (data[i].name.toUpperCase() == village.toUpperCase()){
+                if (data[i].name.toUpperCase() == passedValue.toUpperCase()){
                     console.log("Kylä/kaupungin osa löytyi!");
                     console.log("Kylän id on = "+ data[i].id);   
                     returnData =  data[i].id;
             } 
         }
+        return returnData;
     }
 
     function createHTML(data){
     var htmlString = '';
         for (i=0;i<data.length;i++){
     htmlString += '<h2><a href ='+ data[i].link +'>' + data[i].title.rendered +'</a>'+'</h2>';
-    htmlString += data[i].date;
+    htmlString += 'Aika: ' + data[i].date;
     htmlString += data[i].content.rendered;
     }
     printHere.innerHTML = htmlString;
