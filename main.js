@@ -108,7 +108,34 @@ document.getElementById("luo").onclick = function () {
         var a;
         var kuntaURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/tm_village?search=' + kunta;
 
-        
+        var kuntaRequest = new XMLHttpRequest();
+        kuntaRequest.open('GET', kuntaURL, false);
+        kuntaRequest.onload = function() {
+        if (kuntaRequest.status >= 200 && kuntaRequest.status < 400) {
+            var data = JSON.parse(kuntaRequest.responseText);
+            console.log(data);
+            a = parseSearch(data, kunta);
+        } else {
+            console.log("We connected to the server, but it returned an error.");
+        }
+        };
+    
+        kuntaRequest.onerror = function() {
+            console.log("Connection error");
+        };
+    
+        kuntaRequest.send();
+        if (kuntaRequest.readyState == 4){
+            if (a==undefined){
+              //  console.log("Returnin undefined as kunta");
+                return '';
+            } else {
+                //console.log("Asetetaan kylä url osoitteeseen: " + a);
+                var municipality = "&tm_village="+a;
+               // console.log("*=====*getKunta function call completed*=====*");
+                return municipality;
+            }
+        }
     }
 
 
