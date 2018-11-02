@@ -28,7 +28,7 @@ document.getElementById("luo").onclick = function () {
  
     function requestedURL(){
 
-      var requestURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/' + typeSelected + postPerPage(perPage) + getArea(area) + orderBy(orderedBy) + ordered(order) +  getKunta(kunta);
+      var requestURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/' + typeSelected + postPerPage(perPage) + getArea(area) + orderBy(orderedBy) + ordered(order) +  getKunta(kunta) + getVillage(village);
       console.log(requestURL);
       return requestURL;
     }
@@ -101,6 +101,12 @@ document.getElementById("luo").onclick = function () {
                 return municipality;
             }
         }
+    }
+
+    
+    function getVillage(kunta){ //basically same code as getKunta so i didnt change the terminology
+        var a;
+        var kuntaURL = 'https://www.'+ serviceSelected +'.fi/wp-json/wp/v2/tm_village?search=' + kunta;
 
         
     }
