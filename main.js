@@ -1,4 +1,3 @@
-console.log("Main.js start");
 var printHere = document.getElementById("print");
 
 
@@ -110,6 +109,7 @@ document.getElementById("luo").onclick = function () {
     
         theRequest.onerror = function() {
             console.log("Connection error");
+            alert("Connection error.")
         };
     
         theRequest.send();  
